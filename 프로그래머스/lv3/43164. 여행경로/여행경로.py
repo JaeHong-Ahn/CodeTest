@@ -1,39 +1,65 @@
 def solution(tickets):
-    #airport 출발지 찾음
-    def find_start_airport(airport) :
+
+    answer = []
+
+    visited = [False for _ in range(len(tickets))]
+
+    # airport 출발지 찾음
+    def find_start_airport(airport, visited):
         start = []
-        for i in range(len(tickets)) :
-            if airport == tickets[i][0] :
+        for i in range(len(tickets)):
+            if airport == tickets[i][0] and visited[i] == False:
                 start.append(tickets[i])
         # 알파벳순 정렬
-        start = sorted(start, key = lambda x : x[1])
-        return start      
-    
-    def dfs(previous, tickets) :
-        
+        start = sorted(start, key=lambda x: x[1])
+        return start
+
+    def dfs(previous, tickets, visited):
+
+        #중복 값 체크
+        loca = []
         for i in range(len(tickets)) :
-            if tickets[i][0] == previous[0] and tickets[i][1] == previous[1] :
-                tickets[i][0] == "visited"
-                tickets[i][1] == "visited"
-        
-        if not find_start_airport(previous[1]) :
-            return False
-        else :
-            next = find_start_airport(previous[1])
-        answer.append(previous[1])
-        
-        if len(set(tickets)) == 1 :
+            if tickets[i] == previous :
+                loca.append(i)
+
+        #중복값 [["A","B],["A","B"]]에서 각각의 위치로 방문한 적이 있는지 확인
+        for i in range(len(loca)) :
+            if visited[loca[i]] == False :
+                visited[loca[i]] = True
+                # visited에서 방문한 적이 있는 요소를 history로 남기는 배열
+                a.append(loca[i])
+                answer.append(previous[1])
+                break
+
+        #탈출 조건
+        if len(answer) == (len(tickets) + 1) and len(list(set(visited))) == 1:
             return answer
-        for i in range(len(next)) :
-            dfs(next[i], tickets)
-    
+
+        #다음에 방문할 공항이 없는 경우 Flase 반환
+        if find_start_airport(previous[1], visited) == []:
+            return False
+        else:
+            next = find_start_airport(previous[1], visited)
+
+        for i in range(len(next)):
+
+            if dfs(next[i], tickets, visited) :
+                return answer
+
+            answer.pop()
+            visited[a[-1]] = False
+            a.remove(a[-1])
+
+
+    present = find_start_airport("ICN", visited)
+    a = [] # visited에서 방문한 적이 있는 요소를 history로 남기는 배열
     answer = ["ICN"]
-        
-    present = find_start_airport("ICN")
-    
-    # for i in range(len(present)) :
-    #     dfs(present[i], tickets)
-    
-    print(present)
-    
+    for i in range(len(present)) :
+
+        if dfs(present[i], tickets, visited) == False :
+            answer = ["ICN"]
+            visited = [False for _ in range(len(tickets))]
+            continue
+        else : dfs(present[i], tickets, visited)
+
     return answer
