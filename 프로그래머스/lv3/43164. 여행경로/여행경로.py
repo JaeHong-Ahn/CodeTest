@@ -35,7 +35,7 @@ def solution(tickets):
         if len(answer) == (len(tickets) + 1) and len(list(set(visited))) == 1:
             return answer
 
-        #다음에 방문할 공항이 없는 경우 Flase 반환
+        #다음에 방문할 공항이 없는 경우 False 반환
         if find_start_airport(previous[1], visited) == []:
             return False
         else:
