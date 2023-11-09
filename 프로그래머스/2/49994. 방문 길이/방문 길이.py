@@ -31,12 +31,10 @@ def solution(dirs):
                         now_index.append(k)
                 for j in range(len(now_index)):
                     if now_index[j] >= 1 and maps[now_index[j]-1] == maps[-1] :
-                        print(now)
                         answer -= 1
                         break
                 
                     elif maps[now_index[j]+1] == maps[-1] :
-                        print(now)
                         answer -= 1
                         break
                     
