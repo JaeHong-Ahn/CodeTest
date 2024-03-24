@@ -7,7 +7,7 @@ def eratos(M, N):
 
     for i in range(2, int(N**(1/2)+1)):
         if prime[i]:
-            for j in range(i*2, N+1, i):
+            for j in range(i*i, N+1, i):
                 prime[j] = False
 
     for k in range(M, N+1):
