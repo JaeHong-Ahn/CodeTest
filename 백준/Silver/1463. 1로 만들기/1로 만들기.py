@@ -1,14 +1,22 @@
 T = int(input())
 
-d = [0] * 1000001
+d = {1:0}
 
-for i in range(2, T+1) :
-    d[i] = d[i-1] + 1
+def recursion(T):
+    if T in d.keys():
+        return d[T]
+    if T % 3 == 0 and T % 2 == 0:
+        d[T] = min(recursion(T//3)+1, recursion(T//2)+1)
 
-    if i % 2 == 0 :
-        d[i] = min(d[i], d[i//2] + 1)
+    elif T % 3 == 0:
+        d[T] = min(recursion(T//3)+1, recursion(T-1) + 1)
 
-    if i % 3 == 0 :
-        d[i] = min(d[i], d[i//3] + 1)
+    elif T % 2 == 0:
+        d[T] = min(recursion(T//2) + 1, recursion(T-1) + 1)
 
-print(d[T])
+    else :
+        d[T] = recursion(T-1) + 1
+
+    return d[T]
+
+print(recursion(T))
