@@ -1,5 +1,3 @@
-# 바이러스
-
 N = int(input())
 
 L = int(input())
@@ -15,15 +13,15 @@ visited = [0] * (N + 1)
 
 cnt = 0
 
-
 def recursion1(n):
     global cnt
     visited[n] = 1
 
-    for i in graph[n]:
-        if (visited[i] == 0):
-            recursion1(i)
+    for j in graph[n]:
+        if visited[j] == 0:
+            recursion1(j)
             cnt += 1
+
 
 recursion1(1)
 print(cnt)
