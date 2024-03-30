@@ -1,27 +1,33 @@
+# 바이러스
+# visited 없이도 풀어보기
+
 N = int(input())
 
 L = int(input())
 
-graph = [[] * (N + 1) for _ in range(N + 1)]
+graph = [[0] * (N + 1) for _ in range(N + 1)]
 
-for i in range(L):
+for _ in range(L):
     a, b = map(int, input().split())
-    graph[a].append(b)
-    graph[b].append(a)
+    graph[a][b] = 1
+    graph[b][a] = 1
 
-visited = [0] * (N + 1)
+ans = []
 
-cnt = 0
+def recursion_no_visited(i):
+    for j in range(1, N+1):
+        if graph[i][j] == 1:
+            graph[i][j] += 1
+            graph[j][i] += 1
+            if i not in ans:
+                ans.append(i)
+            if j not in ans:
+                ans.append(j)
 
-def recursion1(n):
-    global cnt
-    visited[n] = 1
+            recursion_no_visited(j)
+    return ans
 
-    for j in graph[n]:
-        if visited[j] == 0:
-            recursion1(j)
-            cnt += 1
-
-
-recursion1(1)
-print(cnt)
+if L == 0:
+    print(0)
+else:
+    print(len(recursion_no_visited(1))-1)
