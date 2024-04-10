@@ -49,5 +49,5 @@ def backtracking(k, start_team):
             start_team.pop()
 
 
-backtracking(0, [])
+backtracking(1, [0])
 print(minimum)
