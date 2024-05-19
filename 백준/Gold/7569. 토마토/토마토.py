@@ -8,13 +8,12 @@ dr = [0, 0, 0, 0, 1, -1]
 dc = [0, 0, 1, -1, 0, 0]
 dz = [1, -1, 0, 0, 0, 0]
 
-cnt_one = 0
-cnt_minus_one = 0
 for _ in range(H):
     floors = []
     for _ in range(M):
         floors.append(list(map(int, input().split())))
     graph.append(floors)
+    del floors
 
 result = 0
 q = deque()
